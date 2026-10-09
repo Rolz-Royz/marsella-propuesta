@@ -1,9 +1,52 @@
-// Marsella Event Venue — the party menu board (pick services → quote), menu, gallery, quote form.
+// Marsella Event Venue — day/night, the event picker (services → quote), menu, gallery, quote form.
 (() => {
   const store = {
     get(k) { try { return localStorage.getItem(k); } catch { return null; } },
     set(k, v) { try { localStorage.setItem(k, v); } catch { /* private mode */ } },
   };
+
+  // ---- Day / night: every [data-phase] shows its own phase until the visitor flips the switch ----
+  const TKEY = 'marsella-time';
+  const sess = { get(k) { try { return sessionStorage.getItem(k); } catch { return null; } }, set(k, v) { try { sessionStorage.setItem(k, v); } catch { /* private mode */ } } };
+  const qt = new URLSearchParams(location.search).get('t');
+  let mode = qt === 'day' || qt === 'night' ? qt : sess.get(TKEY);
+  if (mode !== 'day' && mode !== 'night') mode = null;
+  const chrome = [...document.querySelectorAll('[data-chrome]')];
+  let chromePhase = (chrome[0] && chrome[0].dataset.phase) || 'day';
+  const effOf = (el) => mode || el.dataset.phase;
+  const apply = () => {
+    document.querySelectorAll('[data-phase]').forEach((el) => {
+      el.dataset.eff = el.hasAttribute('data-chrome') ? (mode || chromePhase) : effOf(el);
+    });
+    const night = (mode || chromePhase) === 'night';
+    document.querySelectorAll('[data-tod]').forEach((b) => b.setAttribute('aria-checked', String(night)));
+  };
+  const flip = (fromEl) => {
+    const current = fromEl ? fromEl.dataset.eff : (mode || chromePhase);
+    mode = current === 'night' ? 'day' : 'night';
+    sess.set(TKEY, mode);
+    apply();
+  };
+  document.querySelectorAll('[data-tod]').forEach((b) => b.addEventListener('click', () => flip()));
+  document.querySelectorAll('[data-lights]').forEach((b) => b.addEventListener('click', () => flip(b.closest('[data-phase]'))));
+  // The dusk band lights its string of bulbs once, when it scrolls into view.
+  const dusk = document.querySelector('[data-dusk] .bulbs');
+  if (dusk) {
+    if (!('IntersectionObserver' in window)) dusk.dataset.eff = 'night';
+    else { const dio = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { dusk.dataset.eff = 'night'; dio.disconnect(); } }, { threshold: .6 }); dio.observe(dusk.parentElement); }
+  }
+  // Header and phone bar follow the section passing under the header.
+  const sections = [...document.querySelectorAll('main [data-phase]')];
+  const under = () => {
+    const y = 74;
+    const s = sections.find((el) => { const r = el.getBoundingClientRect(); return r.top <= y && r.bottom > y; });
+    const p = s ? s.dataset.phase : (sections[0] && sections[0].dataset.phase) || 'day';
+    if (p !== chromePhase) { chromePhase = p; if (!mode) apply(); }
+  };
+  let ticking = false;
+  window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { under(); ticking = false; }); } }, { passive: true });
+  under();
+  apply();
   const KEY = 'marsella-menu';
   let picked = [];
   try { picked = JSON.parse(store.get(KEY) || '[]'); } catch { picked = []; }
