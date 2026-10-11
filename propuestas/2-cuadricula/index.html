@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marsella Event Venue · Propuesta 2 · Cuadrícula</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Propuesta 2: Cuadrícula. Diseño suizo contemporáneo: tipografía enorme, retícula visible, fotos a sangre, un solo acento. */
+:root{
+  --bg:#efeee9; --ink:#0c0c0c; --ink-2:#44433f; --ink-3:#5c5a53; --line:#0c0c0c; --soft:#d9d7cf; --acc:#cf3712;
+  --sans:"Archivo",Helvetica,Arial,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.5;-webkit-font-smoothing:antialiased}
+img{display:block;width:100%;height:100%;object-fit:cover}
+a{color:inherit;text-decoration:none}
+.m{font-family:var(--mono);font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+.pad{padding-left:24px;padding-right:24px}
+
+/* barra */
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:12px 24px;gap:16px}
+.bar b{font-weight:800;font-size:1.05rem;letter-spacing:-.02em}
+.bar nav{display:flex;gap:28px}
+.bar nav a:hover,.bar .go:hover{color:var(--acc)}
+.bar .go{justify-self:end}
+
+/* héroe */
+.hero{padding-top:20px;border-bottom:1px solid var(--line)}
+.hero h1{font-weight:850;font-stretch:75%;font-size:clamp(5rem,24.5vw,25rem);line-height:.78;letter-spacing:-.055em;text-transform:lowercase;margin-left:-.04em}
+.hero-row{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;margin-top:28px;padding-bottom:28px}
+.hero-row p.big{grid-column:1/8;font-size:clamp(1.5rem,2.6vw,2.4rem);line-height:1.12;font-weight:600;letter-spacing:-.02em}
+.hero-row p.big em{font-style:normal;color:var(--acc)}
+.hero-row .m{grid-column:9/13;color:var(--ink-2);align-self:end;line-height:1.7}
+.hero-photo{height:min(78vh,820px);border-top:1px solid var(--line);position:relative}
+.hero-photo img{object-position:50% 62%}
+.hero-photo .m{position:absolute;left:24px;bottom:16px;background:var(--bg);padding:6px 10px}
+
+/* cinta */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
+.strip div{padding:26px 24px;border-left:1px solid var(--line)}
+.strip div:first-child{border-left:0}
+.strip b{display:block;font-weight:800;font-stretch:80%;font-size:clamp(2.6rem,5.5vw,5rem);line-height:.95;letter-spacing:-.04em}
+.strip span{margin-top:6px;display:block}
+
+/* secciones */
+.sec-h{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;padding:72px 24px 28px;align-items:end}
+.sec-h .m{grid-column:1/4}
+.sec-h h2{grid-column:4/13;font-weight:800;font-stretch:80%;font-size:clamp(2.4rem,6.2vw,6rem);line-height:.92;letter-spacing:-.04em}
+
+/* índice de eventos */
+.idx a{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;align-items:center;padding:20px 24px;border-top:1px solid var(--line);transition:background .2s,color .2s}
+.idx a:last-child{border-bottom:1px solid var(--line)}
+.idx .n{grid-column:1/2}
+.idx .t{grid-column:2/8;font-weight:800;font-stretch:78%;font-size:clamp(2.2rem,5.4vw,5rem);line-height:.95;letter-spacing:-.04em}
+.idx .d{grid-column:8/11;color:var(--ink-2);font-size:.98rem;line-height:1.4}
+.idx .th{grid-column:11/13;aspect-ratio:4/3;overflow:hidden}
+.idx .th img{transition:transform .5s}
+.idx a:hover{background:var(--ink);color:var(--bg)}
+.idx a:hover .d{color:#cfcdc4}
+.idx a:hover .th img{transform:scale(1.06)}
+
+/* mosaico */
+.mosaic{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;padding:24px}
+.mosaic figure{position:relative;overflow:hidden}
+.mosaic figcaption{margin-top:8px;color:var(--ink-3)}
+.m1{grid-column:1/8;aspect-ratio:4/3}
+.m2{grid-column:8/13;aspect-ratio:4/5}
+.m3{grid-column:1/5;aspect-ratio:1/1}
+.m4{grid-column:5/9;aspect-ratio:1/1;margin-top:60px}
+.m5{grid-column:9/13;aspect-ratio:1/1}
+.mosaic .ph{aspect-ratio:inherit;overflow:hidden}
+
+/* ficha */
+.spec{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;padding:24px 24px 72px}
+.spec dl{grid-column:4/13;border-top:1px solid var(--line)}
+.spec dl div{display:grid;grid-template-columns:3fr 9fr;gap:24px;padding:16px 0;border-bottom:1px solid var(--line)}
+.spec dt{color:var(--ink-3)}
+.spec dd{font-size:1.25rem;font-weight:500;letter-spacing:-.01em}
+.tbc{display:inline-block;border:1px dashed var(--acc);color:var(--acc);padding:0 8px}
+
+/* cotizador */
+.build{background:var(--ink);color:var(--bg);padding-bottom:72px}
+.build .sec-h h2{color:var(--bg)}
+.build .sec-h .m{color:#aaa89f}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#3d3c38;margin:0 24px;border:1px solid #3d3c38}
+.tiles h4{grid-column:1/-1;background:var(--ink);padding:14px 18px;color:#aaa89f}
+.tiles label{background:var(--ink);padding:26px 18px;min-height:128px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;font-weight:700;font-stretch:80%;font-size:1.7rem;letter-spacing:-.03em;line-height:1;transition:background .15s,color .15s}
+.tiles label span{font-family:var(--mono);font-weight:400;font-size:.8rem;letter-spacing:.06em;color:#a5a39a}
+.tiles input{position:absolute;opacity:0;pointer-events:none}
+.tiles label:hover{background:#1b1a18}
+.tiles label:has(input:checked){background:var(--acc);color:#fff}
+.tiles label:has(input:checked) span{color:#fff}
+.tiles label:has(input:focus-visible){outline:2px solid #fff;outline-offset:-4px}
+.build .row{display:flex;align-items:center;gap:24px;justify-content:space-between;flex-wrap:wrap;margin:24px 24px 0}
+.go-btn{display:inline-flex;gap:14px;align-items:center;background:var(--acc);color:#fff;padding:18px 28px;font-weight:700;font-size:1.05rem;border:0;cursor:pointer;font-family:var(--sans)}
+.go-btn:hover{background:#fff;color:var(--ink)}
+
+/* reseñas */
+.rev{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;padding:72px 24px;border-bottom:1px solid var(--line)}
+.rev .score{grid-column:1/6;font-weight:850;font-stretch:75%;font-size:clamp(7rem,19vw,17rem);line-height:.8;letter-spacing:-.06em}
+.rev .score small{display:block;font-size:.12em;letter-spacing:0;font-weight:400;font-family:var(--mono);margin-top:18px;color:var(--ink-3);font-stretch:100%}
+.rev .qs{grid-column:7/13;display:flex;flex-direction:column;gap:0;align-self:end}
+.rev blockquote{font-size:clamp(1.4rem,2.2vw,2rem);font-weight:600;line-height:1.15;letter-spacing:-.02em;padding:22px 0;border-top:1px solid var(--line)}
+.rev blockquote cite{display:block;margin-top:10px;font-style:normal;color:var(--ink-3)}
+
+/* equipo */
+.team{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;padding:72px 24px;align-items:center}
+.team .ph{grid-column:1/6;aspect-ratio:5/4}
+.team .tx{grid-column:7/13}
+.team h3{font-weight:800;font-stretch:80%;font-size:clamp(2rem,4.2vw,3.8rem);line-height:.98;letter-spacing:-.035em}
+.team p{margin-top:18px;color:var(--ink-2);max-width:48ch}
+
+/* contacto */
+.contact{border-top:1px solid var(--line);padding:0 24px 28px}
+.contact h2{font-weight:850;font-stretch:75%;font-size:clamp(4rem,17vw,17rem);line-height:.8;letter-spacing:-.05em;padding-top:40px}
+.contact h2 em{font-style:normal;color:var(--acc)}
+.contact dl{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:36px;border-top:1px solid var(--line);padding-top:16px}
+.contact dt{color:var(--ink-3);margin-bottom:6px}
+.contact dd{font-size:1.1rem;font-weight:500}
+.contact .foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:48px;color:var(--ink-3)}
+
+@media (max-width:900px){
+  .bar{grid-template-columns:1fr auto}
+  .bar nav{display:none}
+  .hero-row p.big,.hero-row .m,.sec-h .m,.sec-h h2,.spec dl,.rev .score,.rev .qs,.team .ph,.team .tx{grid-column:1/-1}
+  .hero-row{gap:16px}
+  .strip{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .strip div:nth-child(3){border-left:0}
+  .strip div:nth-child(n+3){border-top:1px solid var(--line)}
+  .idx .n{display:none}
+  .idx .t{grid-column:1/9}
+  .idx .th{grid-column:9/13}
+  .idx .d{grid-column:1/-1}
+  .m1,.m2,.m3,.m4,.m5{grid-column:1/-1;margin-top:0;aspect-ratio:4/3}
+  .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .contact dl{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .spec dl div{grid-template-columns:minmax(0,1fr)}
+  .hero-photo{height:52vh}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.idx .th img{transition:none}}
+dd,dt,h1,h2,h3,p,li{overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+
+<header class="bar m">
+  <b style="font-family:var(--sans);text-transform:none;font-size:1.1rem">Marsella®</b>
+  <nav aria-label="Principal"><a href="#eventos">Eventos</a><a href="#salon">Salón</a><a href="#arme">Su evento</a><a href="#contacto">Contacto</a></nav>
+  <a class="go" href="#arme">Cotizar →</a>
+</header>
+
+<main>
+<section class="hero">
+  <div class="pad"><h1>marsella</h1></div>
+  <div class="hero-row pad">
+    <p class="big">Un salón para <em>100 a 250</em> invitados. Ladrillo, madera, follaje y luz cálida. Nosotros nos encargamos de todo.</p>
+    <p class="m">Event Venue<br>4311 S 2700 W<br>Taylorsville, Utah 84129</p>
+  </div>
+  <div class="hero-photo"><img src="../../assets/img/marsella-salon-mesas-luz-de-dia.webp" alt="El salón de Marsella de día: ladrillo, follaje colgante, focos y mesas de madera con sillas blancas" fetchpriority="high"><span class="m">Fig. 01 — El salón, de día</span></div>
+</section>
+
+<section class="strip m" aria-label="Datos">
+  <div><b>4.9</b><span>Google · 26 reseñas</span></div>
+  <div><b>5</b><span>Años organizando eventos</span></div>
+  <div><b>250</b><span>Invitados como máximo</span></div>
+  <div><b>0</b><span>Casas alrededor</span></div>
+</section>
+
+<section id="eventos">
+  <div class="sec-h"><span class="m">01 / Eventos</span><h2>Qué celebramos</h2></div>
+  <div class="idx">
+    <a href="#arme"><span class="n m">01</span><span class="t">XV años</span><span class="d">Escenario, pista y pantallas para el gran día.</span><span class="th"><img src="../../assets/img/marsella-centros-de-mesa-altos-720.webp" alt="Mesas con arreglos florales altos" loading="lazy"></span></a>
+    <a href="#arme"><span class="n m">02</span><span class="t">Bodas</span><span class="d">En español, en inglés y bodas biculturales.</span><span class="th"><img src="../../assets/img/marsella-mesa-de-novios-720.webp" alt="Mesa de novios con arcos de flores" loading="lazy"></span></a>
+    <a href="#arme"><span class="n m">03</span><span class="t">Martes a jueves</span><span class="d">Cenas, cumpleaños y eventos de empresa.</span><span class="th"><img src="../../assets/img/marsella-mesa-cobre-domo-dorado-720.webp" alt="Mesa larga con platos de cobre" loading="lazy"></span></a>
+    <a href="#arme"><span class="n m">04</span><span class="t">Celebraciones</span><span class="d">Aniversarios, bautizos y reuniones familiares.</span><span class="th"><img src="../../assets/img/marsella-pastel-flores-linterna-720.webp" alt="Pastel con flores y linterna blanca" loading="lazy"></span></a>
+  </div>
+</section>
+
+<section id="salon">
+  <div class="sec-h"><span class="m">02 / Salón</span><h2>La sala, en imágenes</h2></div>
+  <div class="mosaic">
+    <figure class="m1"><div class="ph" style="height:100%"><img src="../../assets/img/marsella-salon-pista-led-trono.webp" alt="El salón por la noche con pista iluminada, trono blanco y follaje colgante" loading="lazy"></div></figure>
+    <figure class="m2"><div class="ph" style="height:100%"><img src="../../assets/img/marsella-boda-mesas-blancas.webp" alt="Mesas redondas con velas y sillas oscuras frente a ventanales" loading="lazy"></div></figure>
+    <figure class="m3"><div class="ph" style="height:100%"><img src="../../assets/img/marsella-mesa-dorada-ladrillo.webp" alt="Mesa con candelabros dorados frente a un muro de ladrillo" loading="lazy"></div></figure>
+    <figure class="m4"><div class="ph" style="height:100%"><img src="../../assets/img/marsella-mesa-rosa-candelabros.webp" alt="Mesa con servilletas rosas y candelabros dorados" loading="lazy"></div></figure>
+    <figure class="m5"><div class="ph" style="height:100%"><img src="../../assets/img/marsella-letrero-neon.webp" alt="Letrero luminoso de Marsella Event Venue sobre un muro de follaje" loading="lazy"></div></figure>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h" style="padding-top:48px"><span class="m">03 / Ficha</span><h2>Lo esencial</h2></div>
+  <div class="spec">
+    <dl class="m" style="text-transform:none;letter-spacing:0;font-family:var(--sans)">
+      <div><dt class="m">Capacidad</dt><dd>100 a 250 invitados</dd></div>
+      <div><dt class="m">Estilo</dt><dd>Rústico: ladrillo, madera y follaje</dd></div>
+      <div><dt class="m">Incluye</dt><dd>Escenario, pista y pantallas</dd></div>
+      <div><dt class="m">Servicios</dt><dd>Comida, DJ, bartender y meseros</dd></div>
+      <div><dt class="m">Ubicación</dt><dd>Estacionamiento amplio, sin casas cerca</dd></div>
+      <div><dt class="m">Idiomas</dt><dd>Español e inglés</dd></div>
+      <div><dt class="m">Horario</dt><dd><span class="tbc m">Por confirmar</span></dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="build" id="arme">
+  <div class="sec-h"><span class="m">04 / Su evento</span><h2>Arme su evento. Le cotizamos.</h2></div>
+  <form onsubmit="return false">
+    <div class="tiles">
+      <h4 class="m">Servicios</h4>
+      <label><input type="checkbox"><span>01</span>Comida</label>
+      <label><input type="checkbox"><span>02</span>DJ</label>
+      <label><input type="checkbox"><span>03</span>Bartender</label>
+      <label><input type="checkbox"><span>04</span>Meseros</label>
+      <label style="grid-column:span 2;background:var(--ink);cursor:default;pointer-events:none"><span>Incluidos en su cotización según lo que marque</span></label>
+      <h4 class="m">Extras</h4>
+      <label><input type="checkbox"><span>05</span>Mesa de postres</label>
+      <label><input type="checkbox"><span>06</span>Maruchan bar</label>
+      <label><input type="checkbox"><span>07</span>Snack bar</label>
+      <label><input type="checkbox"><span>08</span>Pozolito bar</label>
+      <label><input type="checkbox"><span>09</span>Hora loca</label>
+      <label style="background:var(--ink);cursor:default;pointer-events:none"><span>Sin precios en la página</span></label>
+    </div>
+    <div class="row"><button class="go-btn" type="button">Pedir cotización (<span data-count>0</span>) →</button><span class="m" style="color:#aaa89f">Le respondemos con un presupuesto a su medida</span></div>
+  </form>
+</section>
+
+<section class="rev" aria-label="Reseñas">
+  <div class="score">4.9<small>/ 5 · Google · 26 reseñas</small></div>
+  <div class="qs">
+    <blockquote>“Tomé el paquete con comida, muy rica, sirvieron a tiempo y muy profesionales.”<cite class="m">Reseña en Google</cite></blockquote>
+    <blockquote>“Los dueños son muy buena gente y amables.”<cite class="m">Reseña en Google</cite></blockquote>
+  </div>
+</section>
+
+<section class="team">
+  <div class="ph"><img src="../../assets/img/marsella-fachada-letrero-noche.webp" alt="Los dueños de Marsella frente a la fachada del salón con el letrero iluminado" loading="lazy"></div>
+  <div class="tx">
+    <span class="m" style="color:var(--acc)">05 / Anfitriones</span>
+    <h3 style="margin-top:12px">Una familia que atiende a otras familias</h3>
+    <p>La mitad del equipo es familia y la otra mitad, amigos y colaboradores. Usted solo disfruta su evento.</p>
+    <p class="m" style="margin-top:16px">Foto del equipo: <span class="tbc">por confirmar</span></p>
+  </div>
+</section>
+</main>
+
+<footer class="contact" id="contacto">
+  <h2>visítenos<em>.</em></h2>
+  <dl>
+    <div><dt class="m">Dirección</dt><dd>4311 S 2700 W<br>Taylorsville, UT 84129</dd></div>
+    <div><dt class="m">Español</dt><dd>(385) 528-9529</dd></div>
+    <div><dt class="m">English</dt><dd>(407) 765-6378</dd></div>
+    <div><dt class="m">Correo</dt><dd>marsellaeventvenue@gmail.com</dd></div>
+  </dl>
+  <div class="foot m"><span>© 2026 Marsella Event Venue</span><span>Propuesta de diseño 2 de 5 · REGO Agency</span></div>
+</footer>
+
+<script>
+(function(){
+  var boxes=document.querySelectorAll('.tiles input'),out=document.querySelector('[data-count]');
+  function up(){out.textContent=document.querySelectorAll('.tiles input:checked').length}
+  boxes.forEach(function(b){b.addEventListener('change',up)});
+})();
+</script>
+</body>
+</html>
