@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marsella Event Venue · Propuesta A · Anfitriones</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Outfit:wght@300;400;500;600&display=swap">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<style>
+/* Propuesta A: Anfitriones. Idea: "Nosotros recibimos. Tú celebras."
+   Lectura de diseño: sitio de eventos para familias, lenguaje cálido y editorial, familia de diseño vino y champagne.
+   Dials: variance 7, motion 5, density 3. Layout: hero asimétrico, bandeja interactiva "En nuestras manos", bento de 4. */
+:root{
+  --bg:#fbf9f6; --bg-2:#f3eee8; --panel:#ffffff; --ink:#221719; --ink-2:#51444a; --ink-3:#6b5d63; --line:#e2d9d2;
+  --wine:#4b1624; --wine-2:#6a2438; --wine-ink:#f7efe9; --gold:#b58d3f; --gold-text:#7c5a1c; --gold-soft:#e8d5a8; --num:#6a2438; --on-gold:#2a1a0c;
+  --shadow:0 30px 60px -30px rgba(75,22,36,.35);
+  --serif:"Cormorant Garamond",Georgia,serif; --sans:"Outfit",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r-lg:28px; --r-md:18px; --ease:cubic-bezier(.32,.72,0,1);
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#150a0e; --bg-2:#1d0f15; --panel:#241218; --ink:#f4ece6; --ink-2:#d2c3c0; --ink-3:#b3a2a0; --line:#3a2229;
+  --wine:#2a0e17; --wine-2:#7a2a40; --wine-ink:#f7efe9; --gold:#d3ab5a; --gold-text:#e0bd78; --gold-soft:#e8d5a8; --num:#e0bd78;
+  --shadow:0 30px 60px -30px rgba(0,0,0,.7); color-scheme:dark}}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17.5px;line-height:1.62;-webkit-font-smoothing:antialiased}
+img{display:block;width:100%;height:100%;object-fit:cover}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:clamp(18px,4vw,40px)}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.02;text-wrap:balance;letter-spacing:-.01em}
+h1 em,h2 em{font-style:italic;color:var(--gold-text)}
+.lab{font-size:.82rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-text)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* botones: pastilla con círculo interior */
+.btn{display:inline-flex;align-items:center;gap:14px;padding:8px 8px 8px 26px;border-radius:99px;background:var(--wine);color:var(--wine-ink);font-weight:500;font-size:1rem;text-decoration:none;border:0;cursor:pointer;font-family:var(--sans);transition:background .4s var(--ease),transform .4s var(--ease)}
+.btn .ic{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:var(--on-gold);transition:transform .4s var(--ease)}
+.btn:hover{background:var(--wine-2)}
+.btn:hover .ic{transform:translate(2px,-2px) scale(1.06)}
+.btn:active{transform:scale(.98)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line);padding:14px 26px}
+.btn.ghost:hover{box-shadow:inset 0 0 0 1.5px var(--gold)}
+
+/* navegación */
+.nav{position:sticky;top:12px;z-index:20;margin:12px auto 0;max-width:1240px;padding-inline:clamp(12px,3vw,28px)}
+.nav .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;background:color-mix(in oklab,var(--bg) 88%,transparent);backdrop-filter:blur(14px);border-radius:99px;padding:10px 12px 10px 24px;box-shadow:0 0 0 1px var(--line)}
+.brand{text-decoration:none;display:flex;align-items:center;gap:14px;line-height:1}
+.brand .m{width:34px;height:34px;display:grid;place-items:center;position:relative;color:var(--gold-text);font-family:var(--serif);font-size:1.5rem;font-weight:600}
+.brand .m::before{content:"";position:absolute;inset:5px;border:1.5px solid var(--gold);transform:rotate(45deg)}
+.brand b{font-family:var(--serif);font-weight:600;font-size:1.45rem;letter-spacing:.2em}
+.nav ul{display:flex;gap:28px;list-style:none;font-weight:400;font-size:.96rem}
+.nav ul a{text-decoration:none;color:var(--ink-2)}
+.nav ul a:hover{color:var(--ink)}
+.nav .btn{padding:5px 5px 5px 20px;font-size:.92rem}
+.nav .btn .ic{width:34px;height:34px}
+
+/* héroe asimétrico */
+.hero{padding-block:clamp(36px,6vw,72px) clamp(48px,7vw,96px)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:center}
+.hero h1{font-size:clamp(3.2rem,7.4vw,6.6rem);line-height:.96}
+.hero p.sub{margin-top:24px;font-size:1.2rem;color:var(--ink-2);max-width:34ch}
+.hero .cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px;align-items:center}
+.shell{padding:10px;border-radius:calc(var(--r-lg) + 10px);background:var(--bg-2);box-shadow:0 0 0 1px var(--line),var(--shadow)}
+.shell .core{border-radius:var(--r-lg);overflow:hidden;aspect-ratio:5/4.6}
+.shell .core img{object-position:30% 60%}
+.cap{margin-top:14px;font-size:.95rem;color:var(--ink-3);padding-inline:10px}
+
+/* franja de pruebas */
+.proof{border-block:1px solid var(--line)}
+.proof .wrap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.proof div{padding:28px 20px;border-left:1px solid var(--line)}
+.proof div:first-child{border-left:0;padding-left:0}
+.proof b{display:block;font-family:var(--serif);font-weight:500;font-size:clamp(2.2rem,4vw,3.2rem);line-height:1;color:var(--ink)}
+.proof span{display:block;margin-top:6px;color:var(--ink-3);font-size:.95rem}
+
+section.s{padding-block:clamp(72px,10vw,136px)}
+.head{max-width:60ch;margin-bottom:clamp(30px,4vw,52px)}
+.head h2{font-size:clamp(2.4rem,5vw,4.2rem)}
+.head p{margin-top:16px;color:var(--ink-2);font-size:1.12rem;max-width:46ch}
+
+/* bandeja interactiva */
+.hands .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:start}
+.pick h3{font-family:var(--sans);font-size:.82rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-text);padding-bottom:10px;border-bottom:1px solid var(--line)}
+.pick .g+.g{margin-top:30px}
+.pick label{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 4px;border-bottom:1px solid var(--line);cursor:pointer;font-family:var(--serif);font-size:1.7rem;font-weight:500;line-height:1.1;transition:color .3s var(--ease),padding .4s var(--ease)}
+.pick label:hover{color:var(--gold-text);padding-left:12px}
+.pick input{position:absolute;opacity:0;pointer-events:none}
+.pick .box{width:30px;height:30px;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--ink-3);display:grid;place-items:center;color:transparent;transition:all .4s var(--ease);flex:none}
+.pick input:checked+.box{background:var(--gold);box-shadow:none;color:var(--on-gold)}
+.pick input:focus-visible+.box{outline:3px solid var(--gold);outline-offset:3px}
+.tray .shell{position:sticky;top:104px}
+.tray .core{background:var(--wine);color:var(--wine-ink);padding:clamp(26px,3.4vw,40px);aspect-ratio:auto;display:grid;gap:18px;min-height:380px;align-content:start}
+.tray h3{font-size:2.3rem;color:var(--wine-ink)}
+.tray .empty{color:#d9c6c2;font-size:1.02rem;max-width:30ch}
+.tray ul{list-style:none;display:grid;gap:10px;min-height:0}
+.tray li{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:14px;background:rgba(255,255,255,.08);animation:land .6s var(--ease) both;font-weight:400}
+.tray li i{color:var(--gold-soft)}
+@keyframes land{from{opacity:0;transform:translateY(-14px) scale(.97)}to{opacity:1;transform:none}}
+.tray .enjoy{font-family:var(--serif);font-style:italic;font-size:1.9rem;line-height:1.1;color:var(--gold-soft);display:none}
+.tray.has .enjoy{display:block}
+.tray.has .empty{display:none}
+.tray .btn{justify-self:start;background:var(--gold);color:var(--on-gold);margin-top:6px}
+.tray .btn .ic{background:var(--wine);color:var(--wine-ink)}
+.tray .btn:hover{background:#fff}
+
+/* reseñas */
+.voices{background:var(--bg-2)}
+.voices .wrap{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(28px,6vw,96px);align-items:center}
+.voices .num{font-family:var(--serif);font-size:clamp(7rem,16vw,14rem);line-height:.8;color:var(--num);font-weight:500}
+.voices .num small{display:block;font-family:var(--sans);font-size:.95rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:16px}
+.voices blockquote{font-family:var(--serif);font-size:clamp(1.9rem,3.6vw,3rem);line-height:1.12;font-weight:500;max-width:22ch}
+.voices blockquote+blockquote{margin-top:26px;font-size:clamp(1.4rem,2.2vw,1.9rem);color:var(--ink-2);padding-top:22px;border-top:1px solid var(--line)}
+.voices cite{display:block;font-family:var(--sans);font-style:normal;font-size:.9rem;color:var(--ink-3);margin-top:12px;letter-spacing:.06em}
+
+/* equipo */
+.team .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(28px,5vw,80px);align-items:center}
+.team p{color:var(--ink-2);max-width:44ch;margin-top:16px}
+.ph-tbc{border-radius:var(--r-lg);border:1.5px dashed var(--gold);background:var(--bg-2);aspect-ratio:16/10;display:grid;place-items:center;text-align:center;padding:24px;color:var(--ink-2)}
+.ph-tbc i{font-size:2.6rem;color:var(--gold-text);display:block;margin-bottom:8px}
+.ph-tbc span{font-size:.95rem;letter-spacing:.04em}
+
+/* bento de 4 */
+.bento{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:18px}
+.bento figure{margin:0;display:grid;gap:12px;align-content:start}
+.bento .im{border-radius:var(--r-md);overflow:hidden}
+.bento .im img{transition:transform 1s var(--ease)}
+.bento figure:hover .im img{transform:scale(1.04)}
+.bento h3{font-size:1.8rem}
+.bento p{color:var(--ink-2);font-size:1rem;max-width:34ch}
+.b1{grid-column:1/5;grid-row:span 2}.b1 .im{aspect-ratio:4/5}
+.b2{grid-column:5/13}.b2 .im{aspect-ratio:16/9}
+.b3{grid-column:5/9}.b3 .im{aspect-ratio:1/1}
+.b4{grid-column:9/13}.b4 .im{aspect-ratio:1/1}
+
+/* cierre */
+.close{background:var(--wine);color:var(--wine-ink)}
+.close .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(28px,5vw,80px);align-items:center}
+.close h2{font-size:clamp(2.6rem,5.4vw,4.8rem);color:var(--wine-ink)}
+.close p.l{margin-top:18px;color:#e4d3cf;max-width:36ch;font-size:1.12rem}
+.close .btn{margin-top:30px;background:var(--gold);color:var(--on-gold)}
+.close .btn .ic{background:var(--wine);color:var(--wine-ink)}
+.close dl{border-top:1px solid rgba(255,255,255,.22)}
+.close dl div{display:flex;justify-content:space-between;gap:20px;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.22)}
+.close dt{font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-soft);padding-top:3px}
+.close dd{text-align:right;overflow-wrap:anywhere}
+.close dd a{text-decoration:none}
+.tbc{display:inline-block;border:1.5px dashed var(--gold-soft);color:var(--gold-soft);padding:0 10px;border-radius:99px;font-size:.88rem}
+footer{padding-block:28px;color:var(--ink-3);font-size:.92rem}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media (max-width:900px){
+  .nav ul{display:none}
+  .hero .wrap,.hands .grid,.voices .wrap,.team .wrap,.close .wrap{grid-template-columns:minmax(0,1fr)}
+  .proof .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .proof div:nth-child(3){border-left:0;padding-left:0}
+  .proof div:nth-child(n+3){border-top:1px solid var(--line)}
+  .tray .shell{position:static}
+  .b1,.b2,.b3,.b4{grid-column:1/-1;grid-row:auto}
+  .b3,.b4{grid-column:span 6}
+  .b1 .im,.b2 .im{aspect-ratio:4/3}
+}
+@media (max-width:560px){.b3,.b4{grid-column:1/-1}.nav .btn{display:none}.nav .bar{padding-right:20px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.tray li{animation:none}.btn,.btn .ic,.bento .im img,.pick label,.pick .box{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="nav"><div class="bar">
+  <a class="brand" href="#" aria-label="Marsella Event Venue"><span class="m" aria-hidden="true">M</span><b>MARSELLA</b></a>
+  <ul><li><a href="#manos">Cotizar</a></li><li><a href="#equipo">Nosotros</a></li><li><a href="#celebraciones">Celebraciones</a></li><li><a href="#contacto">Contacto</a></li></ul>
+  <a class="btn" href="#manos">Pedir cotización <span class="ic"><i class="ph ph-arrow-up-right"></i></span></a>
+</div></header>
+
+<main>
+<section class="hero"><div class="wrap">
+  <div>
+    <h1>Nosotros recibimos. <em>Tú celebras.</em></h1>
+    <p class="sub">Salón para XV años y bodas en Taylorsville. Comida, DJ, bartender y meseros en un solo equipo.</p>
+    <div class="cta"><a class="btn" href="#manos">Pedir cotización <span class="ic"><i class="ph ph-arrow-up-right"></i></span></a><a class="btn ghost" href="#celebraciones">Ver el salón</a></div>
+  </div>
+  <figure style="margin:0">
+    <div class="shell"><div class="core"><img src="../../assets/img/marsella-fachada-letrero-noche.webp" alt="Los dueños de Marsella frente a la fachada del salón, con el letrero iluminado de noche" fetchpriority="high"></div></div>
+    <figcaption class="cap">Marce y Mike, frente a su salón en Taylorsville.</figcaption>
+  </figure>
+</div></section>
+
+<section class="proof" aria-label="Datos del salón"><div class="wrap">
+  <div><b>4.9</b><span>en Google, con 26 reseñas</span></div>
+  <div><b>5 años</b><span>organizando eventos juntos</span></div>
+  <div><b>100 a 250</b><span>invitados</span></div>
+  <div><b>2 idiomas</b><span>español e inglés</span></div>
+</div></section>
+
+<section class="s hands" id="manos"><div class="wrap">
+  <div class="head reveal"><h2>Deja la fiesta en nuestras <em>manos</em></h2><p>Marca lo que quieres para tu evento. Nosotros nos encargamos y te respondemos con una cotización.</p></div>
+  <div class="grid">
+    <form class="pick reveal" onsubmit="return false" aria-label="Servicios y extras">
+      <div class="g"><h3>Servicios</h3>
+        <label>Comida<input type="checkbox" value="Comida"><span class="box"><i class="ph-bold ph-check"></i></span></label>
+        <label>DJ<input type="checkbox" value="DJ"><span class="box"><i class="ph-bold ph-check"></i></span></label>
+        <label>Bartender<input type="checkbox" value="Bartender"><span class="box"><i class="ph-bold ph-check"></i></span></label>
+        <label>Meseros<input type="checkbox" value="Meseros"><span class="box"><i class="ph-bold ph-check"></i></span></label>
+      </div>
+      <div class="g"><h3>Extras</h3>
+        <label>Mesa de postres<input type="checkbox" value="Mesa de postres"><span class="box"><i class="ph-bold ph-check"></i></span></label>
+        <label>Maruchan bar<input type="checkbox" value="Maruchan bar"><span class="box"><i class="ph-bold ph-check"></i></span></label>
+        <label>Snack bar<input type="checkbox" value="Snack bar"><span class="box"><i class="ph-bold ph-check"></i></span></label>
+        <label>Pozolito bar<input type="checkbox" value="Pozolito bar"><span class="box"><i class="ph-bold ph-check"></i></span></label>
+        <label>Hora loca<input type="checkbox" value="Hora loca"><span class="box"><i class="ph-bold ph-check"></i></span></label>
+      </div>
+    </form>
+    <aside class="tray reveal" id="tray" aria-live="polite">
+      <div class="shell"><div class="core">
+        <h3>En nuestras manos</h3>
+        <p class="empty">Marca un servicio o un extra y aparece aquí.</p>
+        <ul id="trayList"></ul>
+        <p class="enjoy">Tú solo disfruta.</p>
+        <a class="btn" href="#contacto">Pedir cotización (<span id="count">0</span>) <span class="ic"><i class="ph ph-arrow-up-right"></i></span></a>
+      </div></div>
+    </aside>
+  </div>
+</div></section>
+
+<section class="s voices" aria-label="Reseñas"><div class="wrap">
+  <div class="num reveal">4.9<small>Google</small></div>
+  <div class="reveal">
+    <blockquote>“Los dueños son muy buena gente y amables.”<cite>Reseña en Google</cite></blockquote>
+    <blockquote>“Tomé el paquete con comida, muy rica, sirvieron a tiempo y muy profesionales.”<cite>Reseña en Google</cite></blockquote>
+  </div>
+</div></section>
+
+<section class="s team" id="equipo"><div class="wrap">
+  <div class="reveal"><h2 style="font-size:clamp(2.4rem,5vw,4.2rem)">Una familia que atiende a otras <em>familias</em></h2><p>Llevamos cinco años organizando eventos juntos. La mitad del equipo es familia y la otra mitad, amigos y colaboradores.</p></div>
+  <div class="ph-tbc reveal"><div><i class="ph-light ph-users-three"></i><span>Foto de Marce, Mike y el equipo: por confirmar</span></div></div>
+</div></section>
+
+<section class="s" id="celebraciones" style="padding-top:0"><div class="wrap">
+  <div class="head reveal"><h2>Cuatro celebraciones, un mismo <em>cuidado</em></h2></div>
+  <div class="bento">
+    <figure class="b1 reveal"><div class="im"><img src="../../assets/img/marsella-centros-de-mesa-altos.webp" alt="Mesas con arreglos florales altos y el letrero M iluminado al fondo" loading="lazy"></div><div><h3>XV años</h3><p>Escenario, pista y pantallas para el día más esperado.</p></div></figure>
+    <figure class="b2 reveal"><div class="im"><img src="../../assets/img/marsella-mesa-de-novios.webp" alt="Mesa de novios con arcos de flores sobre el muro de ladrillo" loading="lazy" style="object-position:50% 45%"></div><div><h3>Bodas</h3><p>En español, en inglés o bicultural. Dos familias, una fiesta.</p></div></figure>
+    <figure class="b3 reveal"><div class="im"><img src="../../assets/img/marsella-mesa-cobre-domo-dorado.webp" alt="Mesa larga con platos de cobre y un domo dorado de flores" loading="lazy"></div><div><h3>Martes a jueves</h3><p>Cenas, cumpleaños y eventos de empresa.</p></div></figure>
+    <figure class="b4 reveal"><div class="im"><img src="../../assets/img/marsella-pastel-flores-linterna.webp" alt="Pastel con flores junto a una linterna blanca" loading="lazy"></div><div><h3>Aniversarios y más</h3><p>Reuniones de familia con el mismo trato.</p></div></figure>
+  </div>
+</div></section>
+
+<section class="s close" id="contacto"><div class="wrap">
+  <div class="reveal"><h2>Ven a conocer el salón</h2><p class="l">Te lo enseñamos y platicamos cómo imaginas tu fiesta.</p><a class="btn" href="tel:+13855289529">Pedir cotización <span class="ic"><i class="ph ph-arrow-up-right"></i></span></a></div>
+  <dl class="reveal">
+    <div><dt>Español</dt><dd><a href="tel:+13855289529">(385) 528-9529</a></dd></div>
+    <div><dt>English</dt><dd><a href="tel:+14077656378">(407) 765-6378</a></dd></div>
+    <div><dt>Dirección</dt><dd>4311 S 2700 W, Taylorsville, UT 84129</dd></div>
+    <div><dt>Correo</dt><dd>marsellaeventvenue@gmail.com</dd></div>
+    <div><dt>Visitas</dt><dd><span class="tbc">horario por confirmar</span></dd></div>
+  </dl>
+</div></section>
+</main>
+<footer><div class="wrap"><span>© 2026 Marsella Event Venue</span><span>Taylorsville, Utah</span></div></footer>
+
+<script>
+(function(){
+  var tray=document.getElementById('tray'),list=document.getElementById('trayList'),count=document.getElementById('count');
+  function sync(){
+    var on=[].slice.call(document.querySelectorAll('.pick input:checked'));
+    list.innerHTML='';
+    on.forEach(function(i){var li=document.createElement('li');li.innerHTML='<i class="ph-bold ph-check"></i>';li.appendChild(document.createTextNode(i.value));list.appendChild(li)});
+    count.textContent=on.length;tray.classList.toggle('has',on.length>0);
+  }
+  document.querySelectorAll('.pick input').forEach(function(i){i.addEventListener('change',sync)});
+  var els=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+    els.forEach(function(e){io.observe(e)});
+  }else{els.forEach(function(e){e.classList.add('in')})}
+})();
+</script>
+</body>
+</html>
