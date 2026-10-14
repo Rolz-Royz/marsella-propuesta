@@ -29,6 +29,37 @@
   };
   document.querySelectorAll('[data-tod]').forEach((b) => b.addEventListener('click', () => flip()));
   document.querySelectorAll('[data-lights]').forEach((b) => b.addEventListener('click', () => flip(b.closest('[data-phase]'))));
+  // Home hero: daytime photos take turns every 6s (paused at night, in a hidden tab, with reduced motion, or after a manual pick).
+  document.querySelectorAll('[data-carousel]').forEach((swap) => {
+    const slides = [...swap.querySelectorAll('img.d')];
+    const hero = swap.closest('.hero');
+    if (slides.length < 2 || !hero) return;
+    const es = document.documentElement.lang.startsWith('es');
+    const dots = document.createElement('div');
+    dots.className = 'hero-dots';
+    dots.setAttribute('role', 'group');
+    dots.setAttribute('aria-label', es ? 'Fotos del salón de día' : 'Daytime photos of the venue');
+    let at = 0; let timer = null; let paused = false;
+    const show = (i) => {
+      at = (i + slides.length) % slides.length;
+      slides.forEach((im, k) => im.classList.toggle('on', k === at));
+      [...dots.children].forEach((b, k) => b.setAttribute('aria-current', String(k === at)));
+    };
+    const stop = () => { clearInterval(timer); timer = null; };
+    const start = () => { if (!timer && !paused && !matchMedia('(prefers-reduced-motion: reduce)').matches && hero.dataset.eff !== 'night' && !document.hidden) timer = setInterval(() => show(at + 1), 6000); };
+    slides.forEach((im, k) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', (es ? 'Foto ' : 'Photo ') + (k + 1) + (es ? ' de ' : ' of ') + slides.length);
+      b.addEventListener('click', () => { paused = true; stop(); show(k); });
+      dots.appendChild(b);
+    });
+    hero.appendChild(dots);
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+    new MutationObserver(() => (hero.dataset.eff === 'night' ? stop() : start())).observe(hero, { attributes: true, attributeFilter: ['data-eff'] });
+    show(0);
+    start();
+  });
   // The dusk band lights its string of bulbs once, when it scrolls into view.
   const dusk = document.querySelector('[data-dusk] .bulbs');
   if (dusk) {
