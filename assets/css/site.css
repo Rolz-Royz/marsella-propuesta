@@ -75,12 +75,10 @@ p { margin: 0; }
 
 /* ---------- Wordmark + monogram ---------- */
 .mark { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); flex: none; }
-.mono { width: 40px; height: 40px; flex: none; color: var(--gold-ink); }
-.mono text { font-family: var(--f-display); fill: currentColor; }
-.mark .w { display: grid; line-height: 1; gap: 5px; }
-.mark .w b { font: 400 1.32rem/1 var(--f-display); letter-spacing: .26em; }
-.mark .w span { font: 500 .7rem/1 var(--f-body); letter-spacing: .32em; color: var(--gold-ink); }
-@media (max-width: 380px) { .mark .w b { font-size: 1.1rem; letter-spacing: .2em; } .mark .mono { width: 34px; height: 34px; } }
+.logo { display: block; height: 52px; width: auto; flex: none; }
+.mark .logo { filter: drop-shadow(0 1px 1px rgba(29, 27, 34, .66)) drop-shadow(0 4px 8px rgba(29, 27, 34, .42)); }
+.logo.big { height: 84px; }
+@media (max-width: 380px) { .mark .logo { height: 44px; } }
 
 /* ---------- Header ---------- */
 .site-head { position: sticky; top: 0; z-index: 40; border-bottom: 1px solid var(--line); }
@@ -160,7 +158,7 @@ p { margin: 0; }
 .hero > .bulbs { top: 0; left: 4%; right: 4%; }
 .hero .bulbs::before { border-color: rgba(242, 239, 232, .45); }
 .hero-in { width: 100%; display: grid; gap: 20px; justify-items: start; padding-block: 110px clamp(40px, 6vw, 80px); }
-.hero .mono { width: 56px; height: 56px; color: #f3d79c; }
+.hero .hero-logo { height: clamp(72px, 9vw, 112px); filter: drop-shadow(0 2px 14px rgba(13, 14, 28, .55)); }
 .hero h1 { font-size: clamp(2.8rem, 6.4vw, 5.4rem); line-height: 1.04; max-width: 12ch; color: #f2efe8; text-shadow: 0 2px 22px rgba(13, 14, 28, .55); }
 .hero h1 .script { color: #f3d79c; display: inline-block; margin-right: .06em; }
 .hero .lede { color: #f2efe8; max-width: 46ch; text-shadow: 0 1px 12px rgba(13, 14, 28, .8); }
@@ -170,7 +168,7 @@ p { margin: 0; }
 .hero .btn:hover { color: #f2efe8; }
 .hero .btn.ghost { --btn-bg: transparent; color: #f2efe8; border-color: rgba(242, 239, 232, .6); }
 .hero .lights { left: auto; right: clamp(18px, 4vw, 40px); bottom: clamp(24px, 4vw, 44px); }
-@media (max-width: 979px) { .hero-in { padding-bottom: 92px; } .hero .mono { display: none; } .hero .lights { bottom: auto; top: 52px; } }
+@media (max-width: 979px) { .hero-in { padding-bottom: 92px; } .hero .hero-logo { display: none; } .hero .lights { bottom: auto; top: 52px; } }
 
 /* ---------- Sections ---------- */
 .sec { padding-block: clamp(72px, 10vw, 136px); }
