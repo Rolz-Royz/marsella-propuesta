@@ -154,12 +154,14 @@
     dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
   }
 
-  // ---- Quote form: validate, then hand the message to email or text (no backend in the proposal) ----
+  // ---- Quote form: validate, save the request in Base44 (Inquiry), and fall back to email or text if that fails ----
+  const B44_APP = '6acb0b2e48d69d259ca33e1b';
+  const onLiveHost = () => /\.base44\.app$/.test(location.hostname);
   const form = document.querySelector('[data-quote-form]');
   if (form) {
     const sent = document.querySelector('[data-sent]');
     const fieldOf = (el) => el.closest('.field');
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       let ok = true;
       form.querySelectorAll('.field').forEach((f) => f.classList.remove('bad'));
@@ -179,6 +181,28 @@
       const subj = encodeURIComponent(es ? `Cotización · ${d.event}` : `Quote request · ${d.event}`);
       sent.querySelector('[data-mail]').href = `mailto:marsellaeventvenue@gmail.com?subject=${subj}&body=${body}`;
       sent.querySelector('[data-sms]').href = `sms:+13855289529?&body=${body}`;
+      const btn = form.querySelector('[data-send]');
+      const label = btn.textContent;
+      btn.disabled = true; btn.textContent = btn.dataset.sending;
+      let saved = false;
+      if (onLiveHost()) {
+        try {
+          const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 12000);
+          const res = await fetch(`https://base44.app/api/apps/${B44_APP}/entities/Inquiry`, {
+            method: 'POST', signal: ctl.signal,
+            headers: { 'Content-Type': 'application/json', 'X-App-Id': B44_APP },
+            body: JSON.stringify({
+              name: d.name.trim(), phone: (d.phone || '').trim(), email: (d.email || '').trim(), event_type: d.event,
+              event_date: d.date || '', guests: d.guests || '', services: [...(d.services ? d.services.split(', ') : []), ...fd.getAll('want')], preferred_language: d.lang || '',
+              message: (d.msg || '').trim(), site_language: form.dataset.lang, source_page: location.pathname,
+            }),
+          });
+          clearTimeout(t); saved = res.ok;
+        } catch { saved = false; }
+      }
+      btn.disabled = false; btn.textContent = label;
+      sent.querySelector('[data-ok]').hidden = !saved;
+      sent.querySelector('[data-fallback]').hidden = saved;
       form.hidden = true; sent.hidden = false; sent.focus();
     });
     form.querySelectorAll('input, select').forEach((el) => el.addEventListener('input', () => fieldOf(el)?.classList.remove('bad')));

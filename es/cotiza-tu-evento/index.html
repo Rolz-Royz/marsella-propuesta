@@ -85,12 +85,19 @@
         <div class="field"><label for="f-lang">¿En qué idioma te atendemos?</label><select id="f-lang" name="lang"><option>Español</option><option>English</option></select></div>
         <div class="field"><label for="f-msg">Algo más que debamos saber</label><textarea id="f-msg" name="msg"></textarea></div>
         <p class="tbc-note">Los campos con * son obligatorios, y también un teléfono o un correo.</p>
-        <div class="btn-row"><button class="btn" type="submit">Enviar solicitud</button></div>
+        <div class="btn-row"><button class="btn" type="submit" data-send data-sending="Enviando…">Enviar solicitud</button></div>
       </form>
       <div class="sent" data-sent hidden tabindex="-1">
-        <h2>Ya casi.</h2>
-        <p>En el sitio final este formulario llegará directo a Marsella <span class="tbc">[Por confirmar]</span> <span class="tbc-note">(servicio de formularios)</span>. Por ahora, envíalo con un toque:</p>
-        <div class="btn-row"><a class="btn" data-mail href="#"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 7 8.5-7"/></svg> Enviar por correo</a><a class="btn ghost" data-sms href="#"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg> Enviar por mensaje</a></div>
+        <div data-ok hidden>
+          <h2>Recibimos tu solicitud.</h2>
+          <p>Gracias. El equipo de Marsella te contactará por teléfono o correo para armar tu cotización.</p>
+          <p>¿Prefieres hablar ya? Llama en español al <a href="tel:+13855289529">(385) 528-9529</a>.</p>
+        </div>
+        <div data-fallback hidden>
+          <h2>Casi listo.</h2>
+          <p>No pudimos enviarlo desde aquí. Mándalo con un toque:</p>
+          <div class="btn-row"><a class="btn" data-mail href="#"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 7 8.5-7"/></svg> Enviar por correo</a><a class="btn ghost" data-sms href="#"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg> Enviar por mensaje</a></div>
+        </div>
       </div>
     </div>
     <div style="display:grid;gap:18px">

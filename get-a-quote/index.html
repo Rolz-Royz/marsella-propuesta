@@ -85,12 +85,19 @@
         <div class="field"><label for="f-lang">Preferred language</label><select id="f-lang" name="lang"><option>English</option><option>Español</option></select></div>
         <div class="field"><label for="f-msg">Anything else we should know</label><textarea id="f-msg" name="msg"></textarea></div>
         <p class="tbc-note">Fields marked * are required, plus a phone or an email.</p>
-        <div class="btn-row"><button class="btn" type="submit">Send request</button></div>
+        <div class="btn-row"><button class="btn" type="submit" data-send data-sending="Sending…">Send request</button></div>
       </form>
       <div class="sent" data-sent hidden tabindex="-1">
-        <h2>Almost there.</h2>
-        <p>On the live site this form goes straight to Marsella <span class="tbc">[To confirm]</span> <span class="tbc-note">(form service)</span>. For now, send it with one tap:</p>
-        <div class="btn-row"><a class="btn" data-mail href="#"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 7 8.5-7"/></svg> Send by email</a><a class="btn ghost" data-sms href="#"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg> Send by text</a></div>
+        <div data-ok hidden>
+          <h2>We got your request.</h2>
+          <p>Thank you. The Marsella team will contact you by phone or email to put your quote together.</p>
+          <p>Rather talk now? Call the English line at <a href="tel:+14077656378">(407) 765-6378</a>.</p>
+        </div>
+        <div data-fallback hidden>
+          <h2>Almost there.</h2>
+          <p>We couldn’t send it from here. Send it with one tap:</p>
+          <div class="btn-row"><a class="btn" data-mail href="#"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 7 8.5-7"/></svg> Send by email</a><a class="btn ghost" data-sms href="#"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg> Send by text</a></div>
+        </div>
       </div>
     </div>
     <div style="display:grid;gap:18px">
