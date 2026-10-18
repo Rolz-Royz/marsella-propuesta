@@ -60,6 +60,31 @@
     show(0);
     start();
   });
+  // Reviews: the quotes are shuffled on load; four show at once and the button brings in the next four.
+  document.querySelectorAll('[data-cluster]').forEach((box) => {
+    const figs = [...box.querySelectorAll('.quote')];
+    if (figs.length < 5) return;
+    for (let i = figs.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [figs[i], figs[j]] = [figs[j], figs[i]]; }
+    figs.forEach((f) => box.appendChild(f));
+    const SIZE = 4; let start = 0;
+    const render = () => figs.forEach((f, k) => {
+      const idx = (k - start + figs.length) % figs.length;
+      if (idx < SIZE) { f.dataset.slot = String(idx + 1); f.removeAttribute('aria-hidden'); } else { delete f.dataset.slot; f.setAttribute('aria-hidden', 'true'); }
+    });
+    render();
+    box.setAttribute('aria-live', 'polite');
+    const btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'rv-more';
+    btn.innerHTML = '<span></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4"/></svg>';
+    btn.firstChild.textContent = box.dataset.labelMore;
+    box.after(btn);
+    btn.addEventListener('click', () => {
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const go = () => { start = (start + SIZE) % figs.length; render(); box.classList.remove('swap'); };
+      if (reduce) return go();
+      box.classList.add('swap'); setTimeout(go, 260);
+    });
+  });
   // The dusk band lights its string of bulbs once, when it scrolls into view.
   const dusk = document.querySelector('[data-dusk] .bulbs');
   if (dusk) {

@@ -475,3 +475,66 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
   .hero-meta span { font-size: .7rem; letter-spacing: .16em; }
   .hero .btn { padding: 10px 18px; font-size: .9rem; min-height: 44px; }
 }
+
+/* Home, "By day": the statement is the star; the facts sit in one quiet ruled strip. */
+.statement h2 { font: 500 .78rem/1.4 var(--f-body); letter-spacing: .26em; text-transform: uppercase; color: var(--gold-ink); margin: 0 0 18px; }
+.statement .lede { font: 400 clamp(1.52rem, 2.66vw, 2.19rem)/1.22 var(--f-display); color: var(--ink); max-width: 22ch; margin: 0 0 32px; }
+.statement .details { grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); column-gap: 20px; }
+.statement .details li { display: grid; grid-template-columns: minmax(0, 1fr); gap: 3px; padding: 14px 0; }
+.statement .details b { font-size: .66rem; letter-spacing: .22em; }
+.statement .details span { font-size: .92rem; line-height: 1.35; }
+@media (max-width: 560px) { .statement .details { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+
+/* Home, "What are you celebrating?": tall poster cards, the name set large over the photo. */
+.posters .sec-head h2 { font-size: clamp(2.4rem, 5.2vw, 4.4rem); line-height: 1.04; }
+.posters .sec-head { margin-bottom: clamp(28px, 4vw, 52px); }
+.posters .etypes { gap: 14px; border: 0; }
+.posters .etype { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: 1fr auto auto auto; align-content: end; gap: 6px; padding: 18px; min-height: clamp(380px, 46vw, 560px); border: 0 !important; overflow: hidden; color: #f2efe8; }
+.posters .etype .th { position: absolute; inset: 0; z-index: -2; aspect-ratio: auto; }
+.posters .etype::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(13, 14, 28, .92) 0%, rgba(13, 14, 28, .55) 39%, rgba(13, 14, 28, 0) 78%); }
+.posters .etype .ei { grid-row: 1; align-self: start; color: #f3d79c; width: 30px; height: 30px; }
+.posters .etype .t { grid-row: 2; font-size: 1.32rem; line-height: 1.05; letter-spacing: .08em; color: #f2efe8; }
+.posters .etype .d { grid-row: 3; color: #e6e1d8; font-size: .9rem; line-height: 1.4; }
+.posters .etype .go { grid-row: 4; color: #f3d79c; font-size: .64rem; }
+.posters .etype:hover { background: transparent; }
+
+/* Home, "By night": the four facts as full-width index rows, the name large at the left and the line at the right. */
+.index-rows .feats { grid-template-columns: minmax(0, 1fr); margin-top: clamp(36px, 4vw, 56px); border-bottom: 1px solid var(--line); }
+.index-rows .feats li, .index-rows .feats li + li { padding: 22px 0; border-left: 0; border-top: 1px solid var(--line); gap: 6px; transition: background-color .3s var(--ease); }
+@media (min-width: 800px) { .index-rows .feats li, .index-rows .feats li + li { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: baseline; gap: 32px; } }
+.index-rows .feats b { font-size: clamp(1.5rem, 2.8vw, 2.3rem); text-transform: uppercase; letter-spacing: .06em; line-height: 1.1; transition: color .3s var(--ease); }
+.index-rows .feats span { font-size: 1rem; }
+@media (hover: hover) { .index-rows .feats li:hover b { color: var(--gold); } }
+
+/* Home, "Weeknights, too": the room by day as a photo band, text left, the week on a translucent plate. */
+.wk-photo { position: relative; isolation: isolate; overflow: hidden; padding-block: clamp(56px, 8vw, 112px); }
+.wk-photo > .wk-bg { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
+.wk-photo::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(13, 14, 28, .765) 0%, rgba(13, 14, 28, .595) 45%, rgba(13, 14, 28, .21) 100%); }
+.wk-photo .days-plate { background: rgba(13, 14, 28, .62); border: 1px solid rgba(214, 179, 106, .5); padding: clamp(16px, 2.4vw, 28px); }
+.wk-photo .days { border-color: rgba(242, 239, 232, .25); }
+.wk-photo .days span { color: #cdc8d8; border-color: rgba(242, 239, 232, .25); }
+.wk-photo .days span.on { color: #14121b; }
+/* The weeknights band sits on a dark photo, so it keeps the night palette whatever the visitor's day/night switch says. */
+.wk-photo[data-eff] { --bg: #0d0e1c; --bg-2: #121429; --panel: #16182c; --ink: #f2efe8; --ink-2: #cdc8d8; --ink-3: #a7a1b6; --line: #2c2e48; --gold: #d6b36a; --gold-ink: #d6b36a; --accent: #e3b77a; --btn-bg: #d6b36a; --btn-ink: #14121b; --frame: rgba(214, 179, 106, .5); background: transparent; color: var(--ink); }
+
+/* Reviews: a floating cluster of soft bubbles, the first one large. Four show at a time; the button swaps in the others. */
+.cluster { display: grid; gap: 20px; transition: opacity .25s var(--ease); }
+.cluster.swap { opacity: 0; }
+.cluster .quote { display: none; margin: 0; background: var(--panel); border: 1px solid var(--line); padding: 26px 30px; gap: 10px; border-radius: 44px 44px 44px 10px; }
+.cluster .quote[data-slot] { display: grid; }
+.cluster .quote blockquote { margin: 0; font: 400 1.1rem/1.35 var(--f-display); }
+.cluster .quote blockquote p { margin: 0; }
+.cluster .quote .tr { margin: 0; font-size: .9rem; }
+@media (min-width: 860px) {
+  .cluster { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0; }
+  .cluster .quote[data-slot="1"] { grid-column: 1 / span 7; grid-row: 1 / span 2; padding: 44px 13% 44px 48px; background: color-mix(in srgb, var(--gold) 16%, var(--panel)); border-color: rgba(214, 179, 106, .5); border-radius: 64px 64px 64px 14px; }
+  .cluster .quote[data-slot="1"] blockquote { font-size: clamp(1.5rem, 2.6vw, 2.1rem); line-height: 1.22; }
+  .cluster .quote[data-slot="2"] { grid-column: 7 / span 6; grid-row: 1; margin: 28px 0 0; border-radius: 40px 40px 10px 40px; z-index: 2; }
+  .cluster .quote[data-slot="3"] { grid-column: 8 / span 5; grid-row: 2; margin: 18px 0 0; border-radius: 40px 40px 40px 10px; }
+  .cluster .quote[data-slot="4"] { grid-column: 3 / span 6; grid-row: 3; margin: -8px 0 0; border-radius: 40px 10px 40px 40px; z-index: 2; }
+}
+.rv-more { margin-top: clamp(22px, 3vw, 34px); display: inline-flex; align-items: center; gap: 10px; min-height: 46px; padding: 0 22px; border: 1px solid var(--line); border-radius: 99px; background: transparent; color: var(--ink); font: 500 .74rem/1 var(--f-body); letter-spacing: .2em; text-transform: uppercase; cursor: pointer; transition: border-color .3s var(--ease), background-color .3s var(--ease), transform .2s var(--ease); }
+.rv-more:hover { border-color: var(--gold); background: var(--panel); }
+.rv-more:active { transform: scale(.97); }
+.rv-more svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; }
+@media (prefers-reduced-motion: reduce) { .cluster { transition: none; } }
