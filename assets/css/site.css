@@ -553,3 +553,5 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
 .menu nav .menu-sub a { font: 400 1.15rem/1.2 var(--f-display); padding: 9px 0; border-bottom: 0; color: var(--ink-2); }
 .menu nav .menu-sub a[aria-current="page"] { color: var(--ink); }
 @media (prefers-reduced-motion: reduce) { .sub { transition: none; } }
+.foot-base a { color: inherit; text-underline-offset: 3px; transition: color .25s var(--ease); }
+.foot-base a:hover { color: var(--gold-ink); }
