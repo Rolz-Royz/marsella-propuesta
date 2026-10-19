@@ -85,6 +85,14 @@
       box.classList.add('swap'); setTimeout(go, 260);
     });
   });
+  // Events dropdown: the chevron opens it for touch and keyboard; Escape or a click outside closes it.
+  document.querySelectorAll('.has-sub').forEach((item) => {
+    const btn = item.querySelector('.sub-btn');
+    const set = (open) => { if (open) item.setAttribute('data-open', ''); else item.removeAttribute('data-open'); btn.setAttribute('aria-expanded', String(open)); };
+    btn.addEventListener('click', () => set(!item.hasAttribute('data-open')));
+    item.addEventListener('keydown', (e) => { if (e.key === 'Escape') { set(false); btn.focus(); } });
+    document.addEventListener('click', (e) => { if (!item.contains(e.target)) set(false); });
+  });
   // The dusk band lights its string of bulbs once, when it scrolls into view.
   const dusk = document.querySelector('[data-dusk] .bulbs');
   if (dusk) {
