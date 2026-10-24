@@ -115,6 +115,7 @@
   let picked = [];
   try { picked = JSON.parse(store.get(KEY) || '[]'); } catch { picked = []; }
   if (!Array.isArray(picked)) picked = [];
+  picked = picked.filter((id) => document.querySelector('[data-item="' + id + '"]') || !document.querySelector('[data-item]'));
 
   const items = () => [...document.querySelectorAll('[data-item]')];
   const labelOf = (id) => { const el = document.querySelector(`[data-item="${id}"] .nm`); return el ? el.textContent.trim() : id; };
