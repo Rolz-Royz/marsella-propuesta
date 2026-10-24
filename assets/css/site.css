@@ -149,11 +149,12 @@ p { margin: 0; }
 .hero .swap[data-carousel] img.d { opacity: 0; transition: opacity 1.4s var(--ease); }
 .hero .swap[data-carousel] img.d.on { opacity: 1; }
 .hero[data-eff="night"] .swap[data-carousel] img.d { opacity: 0; }
+.hero .swap[data-carousel] img.n { opacity: 0; transition: opacity 1.4s var(--ease); }
+.hero[data-eff="night"] .swap[data-carousel] img.n.on { opacity: 1; }
 .hero-dots { position: absolute; z-index: 2; right: clamp(18px, 4vw, 40px); bottom: calc(clamp(24px, 4vw, 44px) + 64px); display: flex; gap: 4px; }
 .hero-dots button { width: 28px; height: 28px; padding: 0; border: 0; background: none; cursor: pointer; display: grid; place-items: center; }
 .hero-dots button::before { content: ""; width: 28px; height: 2px; background: rgba(242, 239, 232, .45); transform: scaleX(.78); transition: background-color .3s, transform .3s var(--ease); }
 .hero-dots button[aria-current="true"]::before { background: #f3d79c; transform: scaleX(1); }
-.hero[data-eff="night"] .hero-dots { display: none; }
 @media (max-width: 979px) { .hero-dots { bottom: 76px; right: 12px; } }
 .hero > .bulbs { top: 0; left: 4%; right: 4%; }
 .hero .bulbs::before { border-color: rgba(242, 239, 232, .45); }
@@ -639,3 +640,13 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
 @media (max-width: 719px) { .filter-bar { justify-content: flex-start; margin-inline: calc(var(--gutter, 16px) * -1); padding-inline: var(--gutter, 16px); } .filter-bar .filters { border-radius: 99px; } }
 .mosaic-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 @media (min-width: 900px) { .mosaic-3 { grid-template-columns: 2fr 1fr 1fr; grid-auto-rows: 360px; } .mosaic-3 .big { grid-row: auto; grid-column: auto; } }
+
+/* ---------- the two phone lines, each labelled in its own language ---------- */
+.call-lines { display: flex; align-items: center; gap: 18px; margin-top: 8px; }
+.call-lines .icon { flex: 0 0 auto; width: 34px; height: 34px; color: var(--gold); }
+.call-lines ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.call-lines a { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 18px; color: inherit; text-decoration: none; }
+.call-lines .cl-n { font-family: var(--f-display, 'Marcellus', serif); font-size: clamp(1.35rem, 2.4vw, 1.75rem); letter-spacing: .02em; color: #f2efe8; white-space: nowrap; }
+.call-lines .cl-t { font-size: clamp(.98rem, 1.5vw, 1.12rem); color: var(--gold); }
+.call-lines a:hover .cl-n { color: var(--gold); }
+.close-band .call-lines, .brick-cta .call-lines { margin-top: 18px; }
